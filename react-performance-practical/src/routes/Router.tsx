@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage";
 import CustomHookPage from "../pages/CustomHookPage";
 import VirtualListPage from "../pages/VirtualListPage";
 import MainLayout from "../shared/Layout/MainLayout";
+import ErrorBoundaryPage from "../components/ErrorBoundaryPage";
 
 const AppRouter = () => {
   return (
@@ -14,6 +15,7 @@ const AppRouter = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/custom-hook" element={<CustomHookPage />} />
           <Route path="/virtual-list" element={<VirtualListPage />} />
+          <Route path="/hoc" element={<ErrorBoundaryPage />} />
         </Route>
 
         {/* Redirect unknown paths */}

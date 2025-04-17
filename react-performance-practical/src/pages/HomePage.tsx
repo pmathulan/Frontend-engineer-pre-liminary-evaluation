@@ -29,6 +29,13 @@ const HomePage = () => {
           >
             3.2 - Virtualized List
           </Link>
+          <Link
+            className="w-full sm:w-auto flex justify-center items-center font-bold text-lg leading-snug px-4 sm:px-6 py-3 rounded-full text-primary dark:text-primary-dark hover:bg-gray-40/5 active:bg-gray-40/10 hover:dark:bg-gray-60/5 active:dark:bg-gray-60/10 ring-1 ring-white focus:outline-white focus:outline-offset-2 shadow-secondary-button-stroke dark:shadow-secondary-button-stroke-dark active:scale-[.98] transition-transform"
+            aria-label="Higher-Order Components"
+            to="/hoc"
+          >
+            3.3 Higher-Order Components
+          </Link>
         </div>
       </div>
     </main>
