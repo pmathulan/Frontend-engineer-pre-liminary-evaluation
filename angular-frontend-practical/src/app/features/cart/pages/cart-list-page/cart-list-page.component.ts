@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { Store } from '@ngrx/store';
 import { selectCartIsLoading, selectCartItemCount, selectCartItems, selectCartTotal } from '../../store/cart.selectors';
 import { FormsModule } from '@angular/forms';
-import { loadFromStorageAction } from '../../store/cart.actions';
+import { loadFromStorageAction, removeItemAction, updateQuantityAction } from '../../store/cart.actions';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { CartItemComponent } from '../../components/cart-item/cart-item.component';
 import { RouterModule } from '@angular/router';
@@ -23,12 +23,20 @@ export class CartListPageComponent implements OnInit {
   items = toSignal(this.store.select(selectCartItems), { initialValue: [] });
   itemCount = toSignal(this.store.select(selectCartItemCount), { initialValue: 0 });
   total = toSignal(this.store.select(selectCartTotal), { initialValue: 0 });
-  isLoading = toSignal(this.store.select(selectCartIsLoading), { initialValue: false });
+  isLoading = toSignal(this.store.select(selectCartIsLoading), { initialValue: true });
 
   constructor() {
   }
 
   ngOnInit(): void {
     this.store.dispatch(loadFromStorageAction()); // trigger loading in effect
+  }
+
+  removeItem(itemId: string): void {
+    this.store.dispatch(removeItemAction({ id: itemId }));
+  }
+
+  updateItemQuantity(event: { id: string; quantity: number }): void {
+    this.store.dispatch(updateQuantityAction(event));
   }
 }

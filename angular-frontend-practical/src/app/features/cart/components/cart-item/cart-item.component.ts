@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, output, signal } from '@angular/core';
 import { CartItem } from '../../models/cart-item.model';
 import { FormsModule } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { removeItemAction, updateQuantityAction } from '../../store/cart.actions';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -13,17 +11,30 @@ import { CurrencyPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class CartItemComponent {
-  private store = inject(Store);
-  @Input() item!: CartItem;
+export class CartItemComponent implements OnInit {
+  item = input.required<CartItem>();
+  remove = output<string>();
+  quantityChange = output<{ id: string; quantity: number }>();
 
-  onRemove(id: string): void {
-    this.store.dispatch(removeItemAction({ id }));
+  // Use a signal for the quantity to manage local state reactively
+  quantity = signal(0);
+
+  ngOnInit(): void {
+    // Initialize the quantity signal with the input item's quantity
+    this.quantity.set(this.item().quantity);
   }
 
-  onQuantityChange(id: string, quantity: number): void {
-    this.store.dispatch(updateQuantityAction({ id, quantity }));
+  decreaseQuantity(): void {
+    this.quantity.update((q) => Math.max(1, q - 1));
+    this.emitQuantityChange();
   }
 
+  increaseQuantity(): void {
+    this.quantity.update((q) => q + 1);
+    this.emitQuantityChange();
+  }
 
+  private emitQuantityChange(): void {
+    this.quantityChange.emit({ id: this.item().id, quantity: this.quantity() });
+  }
 }
