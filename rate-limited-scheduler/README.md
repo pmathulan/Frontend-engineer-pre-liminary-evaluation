@@ -24,9 +24,17 @@ Implements a `schedule(fn, delay)` that ensures:
 ```bash
 npm install
 npm run start
-# OR:
-npx ts-node test/scheduler.test.ts
+```
 
+# OR:
+
+```bash
+npx ts-node test/scheduler.test.ts
+```
+
+## Example Output
+
+```bash
 Executed 0 at 2025-04-17T12:00:00.000Z
 Executed 1 at 2025-04-17T12:00:00.100Z
 Executed 2 at 2025-04-17T12:00:00.200Z
