@@ -1,6 +1,19 @@
-# AngularFrontendPractical
+# Angular Frontend Practical — Project Structure & Usage Guide
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+This project demonstrates best practices for Angular 19+ using:
+
+- ✅ NgRx state management
+- ✅ Change Detection with OnPush
+- ✅ SRP-compliant architecture
+- ✅ SSR-safe localStorage abstraction
+- ✅ Smart/presentational component split
+- ✅ Lazy-loaded modules and standalone components
+
+### Install dependencies
+
+```bash
+npm install
+```
 
 ## Development server
 
@@ -12,20 +25,6 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
 ## Building
 
 To build the project run:
@@ -36,24 +35,41 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+///
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Access App Features
 
-```bash
-ng test
-```
+/products Product list with "Add to Cart"
+/cart Cart with update/remove/view items
+/onpush OnPush demo with lifecycle logging
+/ Homepage
 
-## Running end-to-end tests
+## Project Highlights
 
-For end-to-end (e2e) testing, run:
+- LocalStorageService inside core/services is SSR-safe and injectable anywhere
+- NgRx store is isolated inside each feature module
+- Cart state is persisted automatically with effects (not from component)
+- Toasts are shown via ngx-toastr using side effects
 
-```bash
-ng e2e
-```
+## Technologies
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Angular 19
+- NgRx 19+
+- Standalone components
+- Ngx-Toastr
+- RxJS
+- SSR-safe patterns
 
-## Additional Resources
+## Folder Structure Overview
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+src/ ├── core/ # Global services (e.g., LocalStorage)
+
+├── features/ # App features │ ├── cart/ # Shopping Cart │ │ ├── models/ # Types/interfaces │ │ ├── components/ # Presentational components (AddToCartButton, CartView) │ │ ├── containers/ # Smart components (CartPage, ProductListPage) │ │ ├── services/ # Cart-specific logic (CartStorageService) │ │ └── store/ # NgRx state (actions, reducer, selectors, effects)
+
+│ ├── product/ # Static product listing │ │ ├── models/ │ │ ├── components/ │ │ └── containers/
+
+│ └── onpush/ # OnPush change detection demo │ ├── components/ │ └── containers/
+
+├── pages/ # Page-level views (e.g. HomePage) │ └── homepage/
+
+├── shared/ # Reusable layout/UI │ └── header/ # App header component
