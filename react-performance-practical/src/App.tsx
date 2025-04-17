@@ -1,8 +1,11 @@
-import React from "react";
-import HomePage from "./pages/HomePage";
+import AppRouter from "./routes/Router"; // Router component
 
 function App() {
-  return <HomePage />;
+  return (
+    <>
+      <AppRouter /> {/*router component to handle routing*/}
+    </>
+  );
 }
 
 export default App;

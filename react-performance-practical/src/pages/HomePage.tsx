@@ -1,22 +1,21 @@
 import React from "react";
-import PostList, { Post } from "../components/PostList";
-import useFetchWithCache from "../hooks/useFetchWithCache";
+import { Link } from "react-router";
 
 const HomePage = () => {
-  const {
-    data: posts,
-    loading,
-    error,
-  } = useFetchWithCache<Post[]>("https://jsonplaceholder.typicode.com/posts");
-
   return (
     <main style={{ padding: "2rem" }}>
-      <h1>React Custom Hook with Caching</h1>
-
-      {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
-      {loading && <p>Loading posts...</p>}
-
-      {!loading && posts && <PostList posts={posts} />}
+      <h1>React Performance-Focused Practical</h1>
+      <ul style={{ lineHeight: "2" }}>
+        <li>
+          <Link to="/custom-hook">🪝 3.1 - Custom Hook: useFetchWithCache</Link>
+        </li>
+        <li>
+          <Link to="/virtual-list">
+            🔁 3.2 - Virtualized List (10,000 items)
+          </Link>
+        </li>
+        {/* Add future exercises here */}
+      </ul>
     </main>
   );
 };
