@@ -10,6 +10,7 @@ const navigation = [
   { name: "Home", href: "/", match: "/" },
   { name: "Custom Hook", href: "/custom-hook", match: "/custom-hook" },
   { name: "Virtualized List", href: "/virtual-list", match: "/virtual-list" },
+  { name: "HoC", href: "/hoc", match: "/hoc" },
 ];
 
 function classNames(...classes: string[]) {
