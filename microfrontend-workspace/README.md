@@ -18,7 +18,7 @@ This project demonstrates a **Micro-Frontend architecture** using Angular, Modul
 npm install
 ```
 
-Make sure you are in the root workspace folder (microfrontend/) when running this.
+Make sure you are in the root workspace folder (microfrontend-workspace/) when running this.
 
 ### 2. Run the Applications
 
