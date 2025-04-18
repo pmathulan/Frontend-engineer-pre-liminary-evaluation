@@ -1,59 +1,69 @@
-# MicrofrontendWorkspace
+# Angular Micro-Frontend Workspace
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+This project demonstrates a **Micro-Frontend architecture** using Angular, Module Federation, and a shared library. The structure includes:
 
-## Development server
+- **Shell**: The main host application.
+- **MFE1**: A remote micro-frontend loaded at runtime.
+- **Shared Library**: Contains services or utilities used across apps.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Getting Started
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. Install Dependencies
 
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Make sure you are in the root workspace folder (microfrontend/) when running this.
+
+### 2. Run the Applications
+
+Terminal 1: Run MFE1
 
 ```bash
-ng generate --help
+ng serve mfe1 --port 4201
 ```
 
-## Building
-
-To build the project run:
+Terminal 2: Run Shell App
 
 ```bash
-ng build
+ng serve shell --port 4200
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Now open your browser to:
 
-## Running unit tests
+http://localhost:4200 → Loads the Shell App
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Navigating to /mfe1 in the shell will dynamically load MFE1 via Module Federation
 
-```bash
-ng test
-```
+### How It Works
 
-## Running end-to-end tests
+- Shell (Host Application)
+  Routes are defined in APP_ROUTES using loadRemoteModule() from @angular-architects/module-federation.
 
-For end-to-end (e2e) testing, run:
+Micro-frontends like MFE1 are lazy-loaded at runtime.
 
-```bash
-ng e2e
-```
+Shell can share services and state with MFE1 using the shared library.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- MFE1 (Remote App)
+  Exposes Angular components or modules via Module Federation.
 
-## Additional Resources
+Registered as a remote in Shell's webpack.config.js.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+-- Shared Library
+A library generated using ng generate library shared.
+
+Used to share services such as MessageService.
+
+Aliased in tsconfig.base.json for clean imports (e.g., @shared/message.service).
+
+## Inter-App Communication
+
+- To enable communication between Shell and MFE1:
+- Define a service (e.g., MessageService) in the shared library.
+- Use Angular’s Subject or BehaviorSubject for messaging.
+- Both apps consume the same shared service (thanks to Module Federation's shared config).
